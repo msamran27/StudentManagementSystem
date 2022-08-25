@@ -10,7 +10,6 @@
             <div class="col-sm-4">
                 <h1>Create New Student</h1>
                     <form action="#" id="createStudent">
-                        @csrf
                     <div class="form-group">
                         <label for="full_name">Full Name:</label>
                         <input type="full_name" class="form-control" id="full_name" placeholder="Enter Full Name" name="full_name" value='{{ old('full_name') }}'>
@@ -68,53 +67,51 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-            $('#course_ids').select2();
-    </script>
-    <script>
-        function submitForm() {
-    let form_data = new FormData();
+<script type="text/javascript">
+    $('#course_ids').select2();
+    $("#cnic").inputmask();
 
-    let full_name = $('#full_name').val();
-    form_data.append('full_name', full_name);
+    function submitForm() {
+        let form_data = new FormData();
 
-    let cnic = $('#cnic').val();
-    form_data.append('cnic', cnic);
+        let full_name = $('#full_name').val();
+        form_data.append('full_name', full_name);
 
-    let date_of_birth = $('#date_of_birth').val();
-    form_data.append('date_of_birth', date_of_birth);
+        let cnic = $('#cnic').val();
+        form_data.append('cnic', cnic);
 
-    let age = $('#age').val();
-    form_data.append('age', age);
+        let date_of_birth = $('#date_of_birth').val();
+        form_data.append('date_of_birth', date_of_birth);
 
-    let gender = $( "#gender option:selected" ).val();
-    form_data.append('gender',gender);
+        let age = $('#age').val();
+        form_data.append('age', age);
 
-    var course_ids = $('#course_ids').val();
-    form_data.append('course_ids',course_ids);
+        let gender = $( "#gender option:selected" ).val();
+        form_data.append('gender',gender);
 
-    console.log(form_data);
+        var course_ids = $('#course_ids').val();
+        form_data.append('course_ids',course_ids);
 
-    $.ajax({
-        url: "{{ url('store-student') }}",
-        headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-        type: "POST",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: form_data,
-        success: (response) => {
-            $(':input','#createStudent').not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
+        console.log(form_data);
 
-            alert('data saved');
-        },
-        error: (error) => {
-            alert('Error')
-        }
+        $.ajax({
+            url: "{{ url('store-student') }}",
+            headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+            type: "POST",
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: form_data,
+            success: (response) => {
+                $(':input','#createStudent').not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
 
-    });
+                alert('data saved');
+            },
+            error: (error) => {
+                alert('Error')
+            }
 
-
-}
-        </script>
+        });
+    }
+</script>
 @endsection

@@ -42,7 +42,7 @@ class StudentController extends Controller
             'date_of_birth' => ['required', 'date'],
             'age' => ['required', 'integer'],
             'gender' => ['required', 'in:male,female,other'],
-            'course_ids' => ['required', 'exists:courses,id']
+            'course_ids' => ['required', 'string']
         ]);
 
         $student = Student::create($request->all());
