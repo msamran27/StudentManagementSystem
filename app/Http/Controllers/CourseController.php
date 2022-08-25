@@ -35,7 +35,20 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'course_code' => ['required', 'string', 'min:1', 'max:191'],
+            'full_title' => ['required', 'string', 'min:1'],
+            'credit_hours' => ['required', 'integer'],
+        ]);
+
+        $course = Course::create($request->all());
+
+        if ($course->exists) {
+            $saved = 'Student Added Successfully';
+            return redirect('courses')->with('saved', $saved);
+        }
+
+        return 'Something went wrong';
     }
 
     /**
@@ -67,9 +80,22 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Course $course)
     {
-        //
+        $request->validate([
+            'course_code' => ['required', 'string', 'min:1', 'max:191'],
+            'full_title' => ['required', 'string', 'min:1'],
+            'credit_hours' => ['required', 'integer'],
+        ]);
+
+        $course->update($request->all());
+
+        if ($course->exists) {
+            $saved = 'Student Added Successfully';
+            return redirect('courses')->with('saved', $saved);
+        }
+
+        return 'Something went wrong';
     }
 
     /**

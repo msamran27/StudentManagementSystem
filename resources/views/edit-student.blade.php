@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Create Students
+    Edit Students
 @endsection
 
 @section('body')
@@ -67,14 +67,14 @@
                             @foreach (App\Models\Course::get() as $course)
                                 <option value="{{ $course->id }}">{{ $course->full_title }}</option>
                             @endforeach
-                            
+
                         </select>
                         @error('course_ids')
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-              </form>   
+              </form>
             </div>
         </div>
     </div>
