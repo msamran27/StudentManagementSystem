@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cnic">CNIC:</label>
-                        <input type="text" class="form-control" id="cnic" placeholder="eg. 31303-3131313-7" name="cnic" value='{{ $student->cnic }}'>
+                        <input type="text" class="form-control" id="cnic" data-inputmask="'mask': '99999-9999999-9'"  placeholder="eg. 31303-3131313-7" name="cnic" value='{{ $student->cnic }}'>
                         @error('cnic')
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror

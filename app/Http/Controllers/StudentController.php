@@ -35,25 +35,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'full_name' => ['required', 'string', 'min:3', 'max:191'],
-            'cnic' => ['required', 'integer', 'min:1'],
+            'cnic' => ['required', 'string', 'min:1'],
             'date_of_birth' => ['required', 'date'],
             'age' => ['required', 'integer'],
             'gender' => ['required', 'in:male,female,other'],
-            'course_ids' => ['required', 'array', 'exists:courses,id']
+            'course_ids' => ['required', 'exists:courses,id']
         ]);
 
         $student = Student::create($request->all());
 
-        $student->courses()->sync($request->course_ids);
+        $courseIds = explode(',', $request->course_ids);
+        $student->courses()->sync($courseIds);
 
-        if ($student->exists) {
-            $saved = 'Student Added Successfully';
-            return redirect()->route('students')->with('saved', $saved);
-        }
-
-        return 'Something went wrong';
+        return 'data saved successfully';
     }
 
     /**
@@ -89,7 +86,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'full_name' => ['required', 'string', 'min:3', 'max:191'],
-            'cnic' => ['required', 'integer', 'min:1'],
+            'cnic' => ['required', 'string', 'min:1'],
             'date_of_birth' => ['required', 'date'],
             'age' => ['required', 'integer'],
             'gender' => ['required', 'in:male,female,other'],
@@ -100,7 +97,7 @@ class StudentController extends Controller
 
         $student->courses()->sync($request->course_ids);
 
-        return redirect()->back()->with('saved', 'Student updated Successfully');
+        return 'Student updated Successfully';
 
     }
 

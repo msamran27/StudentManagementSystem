@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-sm-4">
                 <h1>Create New Student</h1>
-                <form action="{{ url('store-student') }}" method="POST">
-                    @csrf
+                    <form action="#" id="createStudent">
+                        @csrf
                     <div class="form-group">
                         <label for="full_name">Full Name:</label>
                         <input type="full_name" class="form-control" id="full_name" placeholder="Enter Full Name" name="full_name" value='{{ old('full_name') }}'>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cnic">CNIC:</label>
-                        <input type="text" class="form-control" id="cnic" placeholder="eg. 31303-3131313-7" name="cnic" value='{{ old('cnic') }}'>
+                        <input type="text" class="form-control" id="cnic" data-inputmask="'mask': '99999-9999999-9'" placeholder="eg. 31303-3131313-7" name="cnic" value='{{ old('cnic') }}'>
                         @error('cnic')
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror
@@ -62,8 +62,8 @@
                             <div class="error text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Create new student</button>
-              </form>   
+                    <button type="button" class="btn btn-primary"onclick="submitForm()" value="Submit">Create new student</button>
+                    </form>
             </div>
         </div>
     </div>
@@ -71,4 +71,50 @@
     <script type="text/javascript">
             $('#course_ids').select2();
     </script>
+    <script>
+        function submitForm() {
+    let form_data = new FormData();
+
+    let full_name = $('#full_name').val();
+    form_data.append('full_name', full_name);
+
+    let cnic = $('#cnic').val();
+    form_data.append('cnic', cnic);
+
+    let date_of_birth = $('#date_of_birth').val();
+    form_data.append('date_of_birth', date_of_birth);
+
+    let age = $('#age').val();
+    form_data.append('age', age);
+
+    let gender = $( "#gender option:selected" ).val();
+    form_data.append('gender',gender);
+
+    var course_ids = $('#course_ids').val();
+    form_data.append('course_ids',course_ids);
+
+    console.log(form_data);
+
+    $.ajax({
+        url: "{{ url('store-student') }}",
+        headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: form_data,
+        success: (response) => {
+            $(':input','#createStudent').not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
+
+            alert('data saved');
+        },
+        error: (error) => {
+            alert('Error')
+        }
+
+    });
+
+
+}
+        </script>
 @endsection
