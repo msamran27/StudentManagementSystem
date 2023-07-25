@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label for="course_ids">Select Courses:</label>
-                        <select name="course_ids[]" id="course_ids" class="form-control select2" multiple="multiple">
+                        <select name="course_ids" id="course_ids" class="form-control select2" multiple="multiple">
                             @foreach (App\Models\Course::get() as $course)
                                 <option value="{{ $course->id }}">{{ $course->full_title }}</option>
                             @endforeach
@@ -92,8 +92,6 @@
         var course_ids = $('#course_ids').val();
         form_data.append('course_ids',course_ids);
 
-        console.log(form_data);
-
         $.ajax({
             url: "{{ url('store-student') }}",
             headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
@@ -104,7 +102,6 @@
             data: form_data,
             success: (response) => {
                 $(':input','#createStudent').not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
-
                 alert('data saved');
             },
             error: (error) => {

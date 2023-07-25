@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,19 +20,15 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// student
-Route::get('/', function () {
-    return view('students');
-});
+
 Route::get('show-courses/{student}', [StudentController::class, 'showCourses']);
 
-Route::get('students', function () {
-    return view('students');
-})->name('students');
 
+// student
+Route::get('/', [StudentController::class, 'index']);
 Route::get('create-student', [StudentController::class, 'create']);
 Route::post('store-student', [StudentController::class, 'store']);
-Route::get('edit-student/{student}', [StudentController::class, 'edit']);
+Route::get('edit-student/{id}', [StudentController::class, 'edit']);
 Route::post('update-student/{student}', [StudentController::class, 'update']);
 Route::delete('delete-student/{student}', [StudentController::class, 'destroy']);
 
@@ -39,7 +38,7 @@ Route::get('courses', function () {
 });
 Route::get('create-course', [CourseController::class, 'create']);
 Route::post('store-course', [CourseController::class, 'store']);
-Route::get('edit-course/{course}', [CourseController::class, 'edit']);
+Route::get('edit-course/{id}', [CourseController::class, 'edit']);
 Route::post('update-course/{course}', [CourseController::class, 'update']);
 Route::delete('delete-course/{course}', [CourseController::class, 'destroy']);
 

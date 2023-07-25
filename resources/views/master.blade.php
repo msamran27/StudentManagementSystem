@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <link rel="icon" href="{{ asset('logo.png') }}">
-
     <title>@yield('title', 'Student Management System')</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -17,15 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
 
-
-
-
 </head>
 <body>
-
     @include('nav')
-
-    <div class="container" style="margin-top: 50px">
+    <div class="container" style="margin-top: 40px">
         @yield('body')
     </div>
 </body>

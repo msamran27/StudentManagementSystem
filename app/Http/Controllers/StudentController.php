@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,15 @@ class StudentController extends Controller
      */
     public function showCourses(Student $student)
     {
-        return view('student-courses', compact('student', $student));
+        $student = Student::with('courses')->first();
+        return view('student-courses', compact('student'));
     }
+
+    public function index(){
+        $students= Student::orderBy('id', 'desc')->paginate(10);
+        return view('students',compact('students'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,9 +52,7 @@ class StudentController extends Controller
             'gender' => ['required', 'in:male,female,other'],
             'course_ids' => ['required', 'string']
         ]);
-
         $student = Student::create($request->all());
-
         $courseIds = explode(',', $request->course_ids);
         $student->courses()->sync($courseIds);
 
@@ -70,9 +76,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit($id)
     {
-        return view('edit-student', compact('student', $student));
+        $student= Student::find($id);
+        return view('edit-student', compact('student'));
     }
 
     /**

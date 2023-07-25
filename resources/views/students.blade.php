@@ -1,9 +1,7 @@
 @extends('master')
 
 @section('body')
-    @php
-        $students = App\Models\Student::orderBy('id', 'desc')->paginate(10);
-    @endphp
+
 
     <a href="{{ url('create-student') }}" class="btn btn-primary btn-lg" style="margin-bottom: 40px">Add New Student</a>
 
@@ -48,7 +46,7 @@
                 </td>
             </tr>
             @endforeach
-        </tbody>    
+        </tbody>
     </table>
 
     {{ $students->links('pagination::bootstrap-4') }}

@@ -68,9 +68,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Course $course,$id)
     {
-        return view('edit-course', compact(['course', $course]));
+        $course = Course::find($id);
+        return view('edit-course', compact('course'));
     }
 
     /**

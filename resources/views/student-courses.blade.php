@@ -22,7 +22,7 @@
                 <td>{{ $course->credit_hours }}</td>
             </tr>
             @endforeach
-        </tbody>    
+        </tbody>
     </table>
 
 @endsection
